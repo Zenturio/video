@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- import aframe and then ar.js with image tracking / location based features -->
+<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+</head>
+
+<!-- style for the loader -->
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
+  <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
+
+  <!-- a-frame scene -->
+  <a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+  >
+    <!-- a-nft is the anchor that defines an Image Tracking entity -->
+    <!-- on 'url' use the path to the Image Descriptors created before. -->
+    <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
+    <a-nft
+      type="nft"
+      url="https://zenturio.github.io/video/assets/nft/25_Elisabeth_Auguste"
+      smooth="true"
+      smoothCount="10"
+      smoothTolerance=".01"
+      smoothThreshold="5"
+    >
+<a-scene>
+  <a-assets>
+    <video id="25_Elisabeth_Auguste" autoplay loop="true" src="25_Elisabeth_Auguste.mp4"></video>
+  </a-assets>
+
+  <!-- Using the asset management system. -->
+  <a-video src="#25_Elisabeth_Auguste" width="16" height="9" position="0 0 -20"></a-video>
+
+  <!-- Defining the URL inline. Not recommended but more comfortable for web developers. -->
+  <a-video src="25_Elisabeth_Auguste.mp4"></a-video>
+</a-scene>
+
+    </a-nft>
+    <!-- static camera that moves according to the device movemenents -->
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
